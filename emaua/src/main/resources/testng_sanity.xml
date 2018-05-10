@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Emauma">
+  <test name= "Emauma Test Cases">
+  	<classes>
+  		<class name="com.emauma.testcases.InstitutionsPageTest"></class>
+  		<class name="com.emauma.testcases.HomePageTest"></class>
+  	</classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
