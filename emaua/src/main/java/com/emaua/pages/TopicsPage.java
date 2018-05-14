@@ -34,6 +34,29 @@ public class TopicsPage extends TestBase{
 	
 	@FindBy(xpath="//a[contains(text(),'Log In')]")
 	WebElement loginLink;
+	
+	@FindBy(xpath="//button[@class='search-button ripple']")
+	WebElement searchButton;
+	
+	@FindBy(xpath="//button[text()='Clear Filters']")
+	WebElement clearFiltersButton;
+	
+	@FindBy(xpath="//a[contains(text(),'Add Topic')]")
+	WebElement addTopicButton;
+	
+	// Elements on the "Add Topic" and "Edit Topic" pop-up Pages
+	// -------------------------------------------------------
+	
+	@FindBy(xpath="//input[@id='topic-title-1']")
+	WebElement topicTitle;
+	
+	@FindBy(xpath="//button[text()='Cancel']")
+	WebElement cancelButton;
+	
+	@FindBy(xpath="//button[text()='Save']")
+	WebElement saveButton;
+	
+	
 
 	
 	//Initialising the Page Objects

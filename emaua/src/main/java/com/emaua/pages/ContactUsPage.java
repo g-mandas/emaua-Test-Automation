@@ -36,6 +36,15 @@ public class ContactUsPage extends TestBase {
 	@FindBy(xpath="//a[contains(text(),'Log In')]")
 	WebElement loginLink;
 	
+	@FindBy(xpath="//button//span[text()='Areas']")
+	WebElement areasButton;
+	
+	@FindBy(xpath="//button[@class='search-button ripple']")
+	WebElement searchButton;
+	
+	@FindBy(xpath="//button[text()='Clear Filters']")
+	WebElement clearFiltersButton;
+	
 	@FindBy(id="name")
 	WebElement name;
 	
@@ -44,6 +53,9 @@ public class ContactUsPage extends TestBase {
 	
 	@FindBy(id="message")
 	WebElement message;
+	
+	@FindBy(xpath="//button[text()='Send Message']")
+	WebElement sendMessageButton;
 	
 	
 	//Initialising the Page Objects

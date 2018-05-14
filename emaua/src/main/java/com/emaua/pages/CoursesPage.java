@@ -113,7 +113,6 @@ public class CoursesPage extends TestBase {
 	
 	
 	//--------------------------------------------------------
-	
 	// Elements at Share Window
 	
 	@FindBy(xpath="//button[text()='Close']")
@@ -124,7 +123,6 @@ public class CoursesPage extends TestBase {
 	
 	
 	//-----------------------------------------------------------
-	
 	// Elements at Delete Confirmation Window
 	
 	@FindBy(xpath="//button[text()='Yes']")

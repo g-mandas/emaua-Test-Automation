@@ -1,6 +1,5 @@
 package com.emaua.testcases;
 
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -83,12 +82,20 @@ public class InstitutionsPageTest extends TestBase{
 		
 	}
 	
+	@Test (enabled=false)	// Verify that SuperAdmin can click "No" on the delete confirmation page -- COMPLETED
+	public void verifyCancelDeleteInstitutionTest() {
+		institutionsPage.clickDeleteButton();
+		driver.switchTo().defaultContent();
+		institutionsPage.clickNoButton();
+		
+	}
+	
 	@Test(enabled=false)  //Verify that pagination is working if available -- COMPLETED
 	public void verifyPagination() {
 		institutionsPage.checkPaginationLink();
 	}
 	
-	@Test(enabled=false)
+	@Test(enabled=false)  //Verify that Institutions Details pop-up page is displayed
 	public void verifyInstitutionDetailsPopUpPageDisplayed() {
 		institutionsPage.moveMouseOverInstitutionTitle();
 		driver.switchTo().defaultContent();
@@ -97,16 +104,13 @@ public class InstitutionsPageTest extends TestBase{
 	}
 	
 	
-	@Test()
+	@Test()  //Verify that Courses can be viewed by clicking the "Check Courses" button
 	public void verifyInstitutionDetailsPopUpPageCheckCoursesButton() {
 		institutionsPage.moveMouseOverInstitutionTitle();
 		driver.switchTo().defaultContent();
 		institutionsPage.clickCheckCourseButton();
 		
 	}
-	
-	
-
 	
 
 //	@AfterMethod

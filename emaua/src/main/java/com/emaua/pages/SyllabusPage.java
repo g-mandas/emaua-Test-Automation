@@ -34,6 +34,45 @@ public class SyllabusPage extends TestBase{
 	
 	@FindBy(xpath="//a[contains(text(),'Log In')]")
 	WebElement loginLink;
+	
+	@FindBy(xpath="//button//span[text()='Areas']")
+	WebElement areasButton;
+	
+	@FindBy(xpath="//button[@class='search-button ripple']")
+	WebElement searchButton;
+	
+	@FindBy(xpath="//button[text()='Clear Filters']")
+	WebElement clearFiltersButton;
+	
+	@FindBy(xpath="//a[contains(text(),'Add Syllabus')]")
+	WebElement addSyllabusButton;
+	
+	@FindBy(xpath="//a[contains(text(),'Share')]")
+	WebElement shareButton;
+	
+	@FindBy(xpath="//a[contains(text(),'Options')]")
+	WebElement optionsButton;
+	
+	// Elements on the "Add Syllabus" and "Edit Syllabus" Page
+	// -------------------------------------------------------
+	
+	@FindBy(xpath="//input[contains(@id,'syllabus-title-')]")
+	WebElement addSyllabusTextBox;
+	
+	@FindBy(xpath="//button[text()='Cancel']")
+	WebElement cancelButton;
+	
+	@FindBy(xpath="//a[text()='Save']")
+	WebElement saveButton;
+	
+	//--------------------------------------------------------
+	// Elements at Share Window
+	
+	@FindBy(xpath="//button[text()='Close']")
+	WebElement closeButton;
+	
+	@FindBy(xpath="//input[@id='shareUrl']")
+	WebElement shareUrl;
 
 	
 	//Initialising the Page Objects
