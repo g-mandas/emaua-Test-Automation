@@ -47,6 +47,15 @@ public class SubjectsPage extends TestBase{
 	@FindBy(xpath="//button[text()='Clear Filters']")
 	WebElement clearFiltersButton;
 	
+	@FindBy(tagName="a")
+	List<WebElement> linksList;
+	
+	@FindBy(tagName="img")
+	List<WebElement> imgLinksList;
+	
+	@FindBy(xpath="//ol[@class='breadcrumb']//li")
+	List<WebElement> listBreadCrumb;
+	
 	@FindBy(xpath="//a[contains(text(),'Add Subject')]")
 	WebElement addSubjectButton;
 	

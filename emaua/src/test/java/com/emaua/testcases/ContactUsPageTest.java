@@ -1,5 +1,8 @@
 package com.emaua.testcases;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -26,16 +29,33 @@ public class ContactUsPageTest extends TestBase{
 		contactUsPage = new ContactUsPage();
 	}
 	
-	@Test(enabled=false)
-	public void loginPageTitleTest() {
+	@Test(priority=1) // Verify the page title
+	public void contactUsPageTitleTest() {
 		String title = contactUsPage.validateContactUsPageTitle();
-		Assert.assertEquals(title, "About :: Emaua");
+		Assert.assertEquals(title, "Contact Us :: Emaua", "Contact Us page title does not match");
 	}
 	
-	@Test(enabled=false)
+	@Test(priority=2) // Verify that Emaua Logo is visible
 	public void emauaLogoTest() {
 		boolean flag = contactUsPage.validateEmauaLogo();
 		Assert.assertTrue(flag);
+	}
+	
+	@Test(priority=3) // Verify the About Us Page Heading
+	public void verifyContactUsPageHeaderTest() {
+		String contactUsPageHeader = contactUsPage.verifyContactUsPageHeading();
+		Assert.assertEquals(contactUsPageHeader, "Contact us", "Page Header does not match");
+	}
+	
+	@Test(priority=4)  // Verify the broken links
+	public void verifyBrokenLinks() throws MalformedURLException, IOException {
+		contactUsPage.verifyBrokenLinks();
+	}
+	
+	@Test(priority=5)  // Verify the BreadCrumb
+	public void verifyBreadCrumb() {
+		contactUsPage.verifybreadCrumb();
+		Assert.assertEquals(contactUsPage.verifybreadCrumb(), "Home/Contact Us", "BreadCrumb does not match");
 	}
 	
 	@AfterMethod

@@ -42,6 +42,15 @@ public class LoginPage extends TestBase{
 	@FindBy(xpath="//a[contains(text(),'Log In')]")
 	WebElement loginLink;	
 	
+	@FindBy(tagName="a")
+	List<WebElement> linksList;
+	
+	@FindBy(tagName="img")
+	List<WebElement> imgLinksList;
+	
+	@FindBy(xpath="//ol[@class='breadcrumb']//li")
+	List<WebElement> listBreadCrumb;
+	
 	@FindBy(id="email")
 	WebElement email;
 	

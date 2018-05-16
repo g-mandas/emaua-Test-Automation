@@ -25,8 +25,7 @@ public class TestBase {
 	public TestBase() {
 		try {
 			prop = new Properties();
-			FileInputStream ip = new FileInputStream("C:\\Users\\Gokhan\\eclipse-workspace\\emaua\\"
-					+ "src\\main\\java\\com\\emaua\\config\\config.properties");
+			FileInputStream ip = new FileInputStream("C:\\Users\\Gokhan\\git\\emaua-Test-Automation\\emaua\\src\\main\\java\\com\\emaua\\config\\config.properties");
 			prop.load(ip);
 			
 		} catch (FileNotFoundException e) {

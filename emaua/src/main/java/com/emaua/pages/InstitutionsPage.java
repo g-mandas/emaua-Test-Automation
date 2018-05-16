@@ -1,8 +1,14 @@
 package com.emaua.pages;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -37,15 +43,36 @@ public class InstitutionsPage extends TestBase {
 	@FindBy(xpath="//a[contains(text(),'Sign Up')]")
 	WebElement signUpLink;
 	
+	@FindBy(xpath="//a[contains(text(),'Log In')]")
+	WebElement loginLink;
+	
+	@FindBy(xpath="//button//span[text()='Areas']")
+	WebElement areasButton;
+	
+	@FindBy(xpath="//button[@class='search-button ripple']")
+	WebElement searchButton;
+	
+	@FindBy(xpath="//button[text()='Clear Filters']")
+	WebElement clearFiltersButton;
+	
+	@FindBy(xpath="//p[@class='category-title']")
+	WebElement categoryTitle;
+	
+	@FindBy(xpath="//a[@class='page-link']") 
+	List<WebElement> pagination;
+	
+	@FindBy(tagName="a")
+	List<WebElement> linksList;
+	
+	@FindBy(tagName="img")
+	List<WebElement> imgLinksList;
+	
+	@FindBy(xpath="//ol[@class='breadcrumb']//li")
+	List<WebElement> listBreadCrumb;
+	
 //	@FindBy(xpath="//button[@class='ripple btn-ripple success popup-btn pull-right'][.='Add Institution']")
 	@ByAngularButtonText.FindBy(buttonText="Add Institution")
 	WebElement addInstitutionButton;
-	
-//	@ByAngularButtonText.FindBy(buttonText="Delete")
-//	WebElement deleteButton;
-	
-//	@ByAngularButtonText.FindBy(buttonText="Edit")
-//	WebElement editButton;
 	
 	@ByAngularButtonText.FindBy(buttonText="Save")
 	WebElement saveButton;
@@ -58,15 +85,6 @@ public class InstitutionsPage extends TestBase {
 	
 	@ByAngularButtonText.FindBy(buttonText="No")
 	WebElement noButton;
-	
-	@FindBy(xpath="//a[contains(text(),'Log In')]")
-	WebElement loginLink;
-	 
-	@FindBy(xpath="//a[@class='page-link']") 
-	List<WebElement> pagination;
-	
-//	@ByAngularButtonText.FindBy(buttonText="Upload Image")
-//	WebElement uploadImageButton;
 	
 	@FindBy(id="name")
 	WebElement name;
@@ -111,6 +129,10 @@ public class InstitutionsPage extends TestBase {
 		return driver.getTitle();
 	}
 	
+	public String validateInstitutionsPageHeader() {
+		return categoryTitle.getText();
+	}
+	
 	public boolean validateEmauaLogo() {
 		return emauaLogo.isDisplayed();
 	}
@@ -136,17 +158,20 @@ public class InstitutionsPage extends TestBase {
 		return new InstitutionsPage();
 	}
 	
-	public InstitutionsPage addNewInstitution() {
+	public InstitutionsPage addNewInstitution(String instName, String instDescription, String instImage, String instWarning) {
 		name.clear();
-		name.sendKeys("1Test Institution");
+		name.sendKeys(instName);
 		description.clear();
-		description.sendKeys("Details about the Test Institution bla bla bla");
+		description.sendKeys(instDescription);
+	//	if(!instImage.equals("null")) {
+			uploadImageButton.sendKeys(instImage);	
+//		}
+	//	else {
+	//		uploadImageButton.sendKeys(Keys.TAB);
+	//	}
+		
 		return new InstitutionsPage();
 		
-	}
-	
-	public void clickUploadImage() {
-		uploadImageButton.sendKeys("C:\\BusinessCard.GIF");
 	}
 	
 	public InstitutionsPage clickEditButton() {
@@ -164,6 +189,11 @@ public class InstitutionsPage extends TestBase {
 	public InstitutionsPage clickSaveButton() {
 		saveButton.click();
 		return new InstitutionsPage();
+		
+	}
+	
+	public boolean verifySaveButtonDisabled() {
+		return saveButton.isDisplayed();
 		
 	}
 	
@@ -230,6 +260,51 @@ public class InstitutionsPage extends TestBase {
 	public boolean verifyCheckCoursesButton() {
 		return checkCourseButton.isDisplayed();
 		
+	}
+	
+	public InstitutionsPage verifyMandatoryNameField() {
+		name.clear();
+		name.sendKeys(Keys.TAB);
+		description.clear();
+		description.sendKeys(Keys.TAB);
+		return new InstitutionsPage();
+		
+	}
+	
+	public void verifyBrokenLinks() throws MalformedURLException, IOException {
+		linksList.addAll(imgLinksList);
+		System.out.println("size of full links and images --->"+linksList.size());
+		List<WebElement> activeLinks = new ArrayList<WebElement>();
+		for(int i=0; i<linksList.size(); i++) {
+			System.out.println(linksList.get(i).getAttribute("href"));
+			if(linksList.get(i).getAttribute("href") !=null && (! linksList.get(i).getAttribute("href").contains("javascript"))) {
+				activeLinks.add(linksList.get(i));
+				
+			}
+		}
+		for(int j=0; j<activeLinks.size(); j++) {
+			
+			HttpURLConnection connection = (HttpURLConnection) new URL(activeLinks.get(j).getAttribute("href")).openConnection();
+			connection.connect();
+			String response = connection.getResponseMessage();  //ok
+			connection.disconnect();
+			System.out.println(activeLinks.get(j).getAttribute("href") +"--->"+response);
+			
+		}
+	}
+	
+	public String verifybreadCrumb() {
+		System.out.println(listBreadCrumb.size());
+		String breadCrumb ="";
+		for(int i=0; i<listBreadCrumb.size(); i++) {
+			if(i==0) {
+				breadCrumb = listBreadCrumb.get(i).getText();
+			} else {
+			System.out.println(listBreadCrumb.get(i).getText());
+			breadCrumb = breadCrumb+"/"+listBreadCrumb.get(i).getText();	
+			}		
+		}
+		return breadCrumb;
 	}
 
 }

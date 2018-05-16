@@ -1,5 +1,7 @@
 package com.emaua.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -43,6 +45,15 @@ public class SyllabusPage extends TestBase{
 	
 	@FindBy(xpath="//button[text()='Clear Filters']")
 	WebElement clearFiltersButton;
+	
+	@FindBy(tagName="a")
+	List<WebElement> linksList;
+	
+	@FindBy(tagName="img")
+	List<WebElement> imgLinksList;
+	
+	@FindBy(xpath="//ol[@class='breadcrumb']//li")
+	List<WebElement> listBreadCrumb;
 	
 	@FindBy(xpath="//a[contains(text(),'Add Syllabus')]")
 	WebElement addSyllabusButton;

@@ -1,8 +1,14 @@
 package com.emaua.pages;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -48,6 +54,21 @@ public class TeachersPage extends TestBase{
 	@FindBy(xpath="//button[text()='Clear Filters']")
 	WebElement clearFiltersButton;
 	
+	@FindBy(xpath="//p[@class='category-title']")
+	WebElement categoryTitle;
+	
+	@FindBy(xpath="//a[@class='page-link']") 
+	List<WebElement> pagination;
+	
+	@FindBy(tagName="a")
+	List<WebElement> linksList;
+	
+	@FindBy(tagName="img")
+	List<WebElement> imgLinksList;
+	
+	@FindBy(xpath="//ol[@class='breadcrumb']//li")
+	List<WebElement> listBreadCrumb;
+	
 	@FindBy(xpath="//a[contains(text(),'Add Teacher')]")
 	WebElement addTeacherButton;
 	
@@ -56,9 +77,6 @@ public class TeachersPage extends TestBase{
 	
 	@FindBy(xpath="//a[contains(text(),'Delete')]")
 	WebElement deleteButton;
-	
-	@FindBy(xpath="//a[@class='page-link']") 
-	List<WebElement> pagination;
 	
 	// Elements on the "Add Teacher" and "Edit Teacher" pop-up Pages
 	// -------------------------------------------------------
@@ -135,7 +153,7 @@ public class TeachersPage extends TestBase{
 		return new LoginPage();
 	}
 	
-	public TeachersPage clickOnAddTeacherButton() {
+	public TeachersPage clickAddTeacherButton() {
 		addTeacherButton.click();
 		return new TeachersPage();
 	}
@@ -162,6 +180,26 @@ public class TeachersPage extends TestBase{
 		uploadImageButton.sendKeys("C:\\BusinessCard.GIF");
 	}
 	
+	public TeachersPage addNewTeacher(String tName, String tTitle, String tInstitution, String tDescription, String tImage, String tWarning) {
+		name.clear();
+		name.sendKeys(tName);
+		title.clear();
+		title.sendKeys(tTitle);
+		teacherInstitutionId.clear();
+		teacherInstitutionId.sendKeys(tInstitution);
+		description.clear();
+		description.sendKeys(tDescription);
+	//	if(!instImage.equals("null")) {
+			uploadImageButton.sendKeys(tImage);	
+//		}
+	//	else {
+	//		uploadImageButton.sendKeys(Keys.TAB);
+	//	}
+		
+		return new TeachersPage();
+		
+	}
+	
 	public TeachersPage clickEditButton() {
 		editButton.click();
 		return new TeachersPage();
@@ -177,6 +215,11 @@ public class TeachersPage extends TestBase{
 	public TeachersPage clickSaveButton() {
 		saveButton.click();
 		return new TeachersPage();
+		
+	}
+	
+	public boolean verifySaveButtonDisabled() {
+		return saveButton.isDisplayed();
 		
 	}
 	
@@ -264,9 +307,57 @@ public class TeachersPage extends TestBase{
 	}
 
 
-	public boolean verifyTeachersPageHeading() {
-			return teachersPageHeading.isDisplayed();
+	public String verifyTeachersPageHeading() {
+			return categoryTitle.getText();
 	}
 
+	public TeachersPage verifyMandatoryNameField() {
+		name.clear();
+		name.sendKeys(Keys.TAB);
+		title.clear();
+		title.sendKeys(Keys.TAB);
+		teacherInstitutionId.clear();
+		teacherInstitutionId.sendKeys(Keys.TAB);
+		description.clear();
+		description.sendKeys(Keys.TAB);
+		return new TeachersPage();
+	
+	}
+	
+	public void verifyBrokenLinks() throws MalformedURLException, IOException {
+		linksList.addAll(imgLinksList);
+		System.out.println("size of full links and images --->"+linksList.size());
+		List<WebElement> activeLinks = new ArrayList<WebElement>();
+		for(int i=0; i<linksList.size(); i++) {
+			System.out.println(linksList.get(i).getAttribute("href"));
+			if(linksList.get(i).getAttribute("href") !=null && (! linksList.get(i).getAttribute("href").contains("javascript"))) {
+				activeLinks.add(linksList.get(i));
+				
+			}
+		}
+		for(int j=0; j<activeLinks.size(); j++) {
+			
+			HttpURLConnection connection = (HttpURLConnection) new URL(activeLinks.get(j).getAttribute("href")).openConnection();
+			connection.connect();
+			String response = connection.getResponseMessage();  //ok
+			connection.disconnect();
+			System.out.println(activeLinks.get(j).getAttribute("href") +"--->"+response);
+			
+		}
+	}
+	
+	public String verifybreadCrumb() {
+		System.out.println(listBreadCrumb.size());
+		String breadCrumb ="";
+		for(int i=0; i<listBreadCrumb.size(); i++) {
+			if(i==0) {
+				breadCrumb = listBreadCrumb.get(i).getText();
+			} else {
+			System.out.println(listBreadCrumb.get(i).getText());
+			breadCrumb = breadCrumb+"/"+listBreadCrumb.get(i).getText();	
+			}		
+		}
+		return breadCrumb;
+	}
 	
 }

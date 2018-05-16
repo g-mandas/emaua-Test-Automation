@@ -1,5 +1,7 @@
 package com.emaua.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -35,6 +37,15 @@ public class RegistrationPage extends TestBase{
 	
 	@FindBy(xpath="//a[contains(text(),'Log In')]")
 	WebElement loginLink;
+	
+	@FindBy(tagName="a")
+	List<WebElement> linksList;
+	
+	@FindBy(tagName="img")
+	List<WebElement> imgLinksList;
+	
+	@FindBy(xpath="//ol[@class='breadcrumb']//li")
+	List<WebElement> listBreadCrumb;
 	
 	//Initialising the Page Objects
 	

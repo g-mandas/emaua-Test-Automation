@@ -1,5 +1,8 @@
 package com.emaua.testcases;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -36,6 +39,23 @@ public class CoursesPageTest extends TestBase{
 	public void emauaLogoTest() {
 		boolean flag = coursesPage.validateEmauaLogo();
 		Assert.assertTrue(flag);
+	}
+	
+	@Test(priority=3) // Verify the Courses Page Heading
+	public void verifyAboutUsPageHeaderTest() {
+		String coursesPageHeader = coursesPage.verifyCoursesPageHeading();
+		Assert.assertEquals(coursesPageHeader, "Courses", "Page Header does not match");
+	}
+	
+	@Test(priority=4)  // Verify the broken links
+	public void verifyBrokenLinks() throws MalformedURLException, IOException {
+		coursesPage.verifyBrokenLinks();
+	}
+	
+	@Test(priority=5)  // Verify the BreadCrumb
+	public void verifyBreadCrumb() {
+		coursesPage.verifybreadCrumb();
+		Assert.assertEquals(coursesPage.verifybreadCrumb(), "Home/About", "BreadCrumb does not match");
 	}
 	
 	@AfterMethod
