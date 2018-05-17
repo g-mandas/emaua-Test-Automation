@@ -1,14 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
-  <test name="Default test(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Emaua Test Automation Test Suite]">
+  <listeners>
+    <listener class-name="com.emaua.ExtentReportListener.ExtentReporterNG"/>
+  </listeners>
+  <test name="Emaua Functional Test Cases(failed)">
     <classes>
+      <class name="com.emaua.testcases.ContactUsPageTest">
+        <methods>
+          <include name="contactUsPageTitleTest"/>
+          <include name="setUp"/>
+          <include name="verifyBreadCrumb"/>
+          <include name="verifyContactUsPageHeaderTest"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.emaua.testcases.ContactUsPageTest -->
+      <class name="com.emaua.testcases.AboutPageTest">
+        <methods>
+          <include name="verifyBrokenLinks"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.emaua.testcases.AboutPageTest -->
+      <class name="com.emaua.testcases.TeachersPageTest">
+        <methods>
+          <include name="verifyBrokenLinks"/>
+          <include name="verifySaveButtonDisabled"/>
+          <include name="verifyTeachersPageHeading"/>
+          <include name="setUp"/>
+          <include name="verifyEditInstitutionTest"/>
+          <include name="verifyInstitutionDetailsPopUpPageCheckCoursesButton"/>
+          <include name="verifyAddTeacherButtonTest"/>
+          <include name="verifyDeleteInstitutionTest"/>
+          <include name="verifyAddTeacher"/>
+          <include name="verifyAddTeacher"/>
+          <include name="verifyBreadCrumb"/>
+          <include name="verifyPagination"/>
+          <include name="tearDown"/>
+          <include name="verifyMandatoryNameField"/>
+          <include name="verifyAddTeacherModalTitle"/>
+          <include name="verifyInstitutionDetailsPopUpPageDisplayed"/>
+        </methods>
+      </class> <!-- com.emaua.testcases.TeachersPageTest -->
       <class name="com.emaua.testcases.InstitutionsPageTest">
         <methods>
+          <include name="verifyInstitutionDetailsPopUpPageCheckCoursesButton"/>
+          <include name="verifyWarningMessages" invocation-numbers="1 2"/>
+          <include name="verifyInstitutionDetailsPopUpPageDisplayed"/>
           <include name="setUp"/>
-          <include name="verifyAddInstitutionModalTitle"/>
+          <include name="tearDown"/>
+          <include name="verifyBrokenLinks"/>
         </methods>
       </class> <!-- com.emaua.testcases.InstitutionsPageTest -->
+      <class name="com.emaua.testcases.CoursesPageTest">
+        <methods>
+          <include name="verifyAboutUsPageHeaderTest"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+          <include name="verifyBreadCrumb"/>
+        </methods>
+      </class> <!-- com.emaua.testcases.CoursesPageTest -->
     </classes>
-  </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+  </test> <!-- Emaua Functional Test Cases(failed) -->
+</suite> <!-- Failed suite [Emaua Test Automation Test Suite] -->

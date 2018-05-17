@@ -4,15 +4,24 @@
  
  <listeners>
  	<listener
- 	class-name="com.qa.ExtentReportListener.ExtentReporterNG">
+ 	class-name="com.emaua.ExtentReportListener.ExtentReporterNG">
  	</listener>
  </listeners>
  
-  <test name= "Emaua Test Cases">
+  <test name= "Emaua Functional Test Cases">
   	<classes>
+  		<class name="com.emaua.testcases.AboutPageTest"></class>
+  		<class name="com.emaua.testcases.ContactUsPageTest"></class>
+  		<class name="com.emaua.testcases.CoursesPageTest"></class>
   		<class name="com.emaua.testcases.HomePageTest"></class>
+  		<class name="com.emaua.testcases.InstitutionsPageTest"></class>
+  		<class name="com.emaua.testcases.LessonsPageTest"></class>
   		<class name="com.emaua.testcases.LoginPageTest"></class>
-  		<class name="com.emaua.testcases.ContactUsTest"></class>
+  		<class name="com.emaua.testcases.RegistrationPageTest"></class>
+  		<class name="com.emaua.testcases.SubjectsPageTest"></class>
+  		<class name="com.emaua.testcases.SyllabusPageTest"></class>
+  		<class name="com.emaua.testcases.TeachersPageTest"></class>
+  		<class name="com.emaua.testcases.TopicsPageTest"></class>
   	</classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
