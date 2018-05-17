@@ -82,6 +82,10 @@ public class AboutPage extends TestBase {
 		return emauaLogo.isDisplayed();
 	}
 	
+	public String verifyAboutUsPageHeading() {
+		return categoryTitle.getText();
+}
+	
 	public LoginPage clickOnLoginPage() {
 		loginLink.click();
 		return new LoginPage();
@@ -91,9 +95,6 @@ public class AboutPage extends TestBase {
 		aboutUsLink.click();
 	}
 	
-	public String verifyAboutUsPageHeading() {
-		return categoryTitle.getText();
-}
 	
 	public void verifyBrokenLinks() throws MalformedURLException, IOException {
 		linksList.addAll(imgLinksList);

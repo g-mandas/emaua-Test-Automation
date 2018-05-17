@@ -108,6 +108,9 @@ public class TeachersPage extends TestBase{
 	@FindBy(xpath="//button[text()='Save']")
 	WebElement saveButton;
 	
+	@FindBy(xpath="//span[@class='error']")
+	WebElement warning;
+	
 	//-----------------------------------------------------------
 	// Elements at Delete Confirmation Window
 	
@@ -218,8 +221,8 @@ public class TeachersPage extends TestBase{
 		
 	}
 	
-	public boolean verifySaveButtonDisabled() {
-		return saveButton.isDisplayed();
+	public boolean isSaveButtonEnabled() {
+		return saveButton.isEnabled();
 		
 	}
 	
@@ -358,6 +361,11 @@ public class TeachersPage extends TestBase{
 			}		
 		}
 		return breadCrumb;
+	}
+	
+	public String getWarningMessage() {
+		return warning.getText();
+		
 	}
 	
 }

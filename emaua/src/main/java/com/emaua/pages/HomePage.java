@@ -1,5 +1,7 @@
 package com.emaua.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -22,10 +24,10 @@ public class HomePage extends TestBase{
 	@FindBy(xpath="//a[contains(text(),'Courses')]")
 	WebElement coursessLink;
 	
-	@FindBy(xpath="//a[contains(text(),'AboutUs')]")
+	@FindBy(xpath="//a[contains(text(),'About')]")
 	WebElement aboutUsLink;
 	
-	@FindBy(xpath="//a[contains(text(),'Contact')]")
+	@FindBy(xpath="//a[contains(text(),'Contact Us')]")
 	WebElement contactLink;
 	
 	@FindBy(xpath="//a[contains(text(),'Sign Up')]")
@@ -33,6 +35,27 @@ public class HomePage extends TestBase{
 	
 	@FindBy(xpath="//a[contains(text(),'Log In')]")
 	WebElement loginLink;
+	
+	@FindBy(xpath="//button//span[text()='Areas']")
+	WebElement areasButton;
+	
+	@FindBy(xpath="//button[@class='search-button ripple']")
+	WebElement searchButton;
+	
+	@FindBy(xpath="//button[text()='Clear Filters']")
+	WebElement clearFiltersButton;
+	
+	@FindBy(xpath="//p[@class='category-title']")
+	WebElement categoryTitle;
+	
+	@FindBy(tagName="a")
+	List<WebElement> linksList;
+	
+	@FindBy(tagName="img")
+	List<WebElement> imgLinksList;
+	
+	@FindBy(xpath="//ol[@class='breadcrumb']//li")
+	List<WebElement> listBreadCrumb;
 	
 	
 	//Initialising the Page Objects
@@ -63,8 +86,12 @@ public class HomePage extends TestBase{
 
 	public LoginPage clickOnLoginPage() {
 		loginLink.click();
-		return new LoginPage();
-		
+		return new LoginPage();	
+	}
+	
+	public AboutPage clickOnAboutPage() {
+		aboutUsLink.click();
+		return new AboutPage();
 	}
 
 }

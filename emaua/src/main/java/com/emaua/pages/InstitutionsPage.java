@@ -95,6 +95,9 @@ public class InstitutionsPage extends TestBase {
 	@FindBy(xpath="//*[@id='input-file']")
 	WebElement uploadImageButton;
 	
+	@FindBy(xpath="//span[@class='error']")
+	WebElement warning;
+	
 //	@FindBy(xpath="//a//parent::p[@class='item-caption']//following-sibling::button[text()='Edit']")
 //	List<WebElement> institutionNamesOnPage;
 	
@@ -163,13 +166,7 @@ public class InstitutionsPage extends TestBase {
 		name.sendKeys(instName);
 		description.clear();
 		description.sendKeys(instDescription);
-	//	if(!instImage.equals("null")) {
-			uploadImageButton.sendKeys(instImage);	
-//		}
-	//	else {
-	//		uploadImageButton.sendKeys(Keys.TAB);
-	//	}
-		
+		uploadImageButton.sendKeys(instImage);
 		return new InstitutionsPage();
 		
 	}
@@ -192,8 +189,8 @@ public class InstitutionsPage extends TestBase {
 		
 	}
 	
-	public boolean verifySaveButtonDisabled() {
-		return saveButton.isDisplayed();
+	public boolean isSaveButtonEnabled() {
+		return saveButton.isEnabled();
 		
 	}
 	
@@ -305,6 +302,11 @@ public class InstitutionsPage extends TestBase {
 			}		
 		}
 		return breadCrumb;
+	}
+	
+	public String getWarningMessage() {
+		return warning.getText();
+		
 	}
 
 }

@@ -23,10 +23,12 @@ public class TeachersPageTest extends TestBase{
 	LoginPage loginPage;
 	
 	String sheetName = "Teachers";
-
-
-//	org.openqa.selenium.interactions.Actions builder;
 	
+	String sheetName1 = "TeachersWarning";
+	String sheetName2 = "TeachersAdd";
+	String sheetName3 = "TeachersEdit";
+	
+
 	public TeachersPageTest() {
 		super();
 	}
@@ -44,19 +46,31 @@ public class TeachersPageTest extends TestBase{
 		
 	}
 	
-	@DataProvider
-	public Object[][] getEmauaTestData() {
-		Object data[][] = TestUtil.getTestData(sheetName);
+	@DataProvider(name = "getEmauaTestData1")
+	public Object[][] getEmauaTestData1() {
+		Object data[][] = TestUtil.getTestData(sheetName1);
 		return data;
 	}
 	
-	@Test(enabled=false) // Verify the Teachers Page Title -- COMPLETED
+	@DataProvider(name = "getEmauaTestData2")
+	public Object[][] getEmauaTestData2() {
+		Object data[][] = TestUtil.getTestData(sheetName2);
+		return data;
+	}
+	
+	@DataProvider(name = "getEmauaTestData3")
+	public Object[][] getEmauaTestData3() {
+		Object data[][] = TestUtil.getTestData(sheetName3);
+		return data;
+	}
+	
+	@Test(enabled=false) // Verify the Teachers Page Title
 		public void teachersPageTitleTest() {
 			String title = teachersPage.validateLoginPageTitle();
 			Assert.assertEquals(title, "Teachers :: Emaua");
 		}
 	
-	@Test(priority=1)  // Verify the teachers Page Header -- COMPLETED
+	@Test(priority=1)  // Verify the teachers Page Header
 	public void verifyTeachersPageHeading() {
 		String teachersPageHeader = teachersPage.verifyTeachersPageHeading();
 		Assert.assertEquals(teachersPageHeader, "Teachers", "page heading does not match");
@@ -65,7 +79,7 @@ public class TeachersPageTest extends TestBase{
 	
 	// Test Cases for Add Teacher Functionality
 	
-	@Test()  //Verify the Heading of the Add Teacher Pop-up Window -- COMPLETED
+	@Test()  //Verify the Header of the Add Teacher Pop-up Window
 	public void verifyAddTeacherModalTitle() throws InterruptedException {
 		teachersPage.clickAddTeacherButton();
 		driver.switchTo().defaultContent();
@@ -74,26 +88,37 @@ public class TeachersPageTest extends TestBase{
 	}
 	
 	
-	@Test() // Verify that the save button is disabled  -- COMPLETED
+	@Test() // Verify that the save button is disabled
 	public void verifySaveButtonDisabled() throws InterruptedException {
 		teachersPage.clickAddTeacherButton();
 		driver.switchTo().defaultContent();
 		Thread.sleep(4000);
-		boolean buttonDisabled=teachersPage.verifySaveButtonDisabled();
+		boolean buttonDisabled=!teachersPage.isSaveButtonEnabled();
 		Assert.assertEquals(buttonDisabled, true);
 	}
 	
-	@Test(priority=1, dataProvider="getEmauaTestData")		//Verify that SuperAdmin can add a new Institution  -- COMPLETED
+	@Test(priority=1, dataProvider="getEmauaTestData1")		//Verify that SuperAdmin can add a new Institution  -- COMPLETED
 	public void verifyAddTeacherButtonTest(String name, String title, String institution,  String description, String image, String warning) throws InterruptedException {
 		teachersPage.clickAddTeacherButton();
 		driver.switchTo().defaultContent();
 		teachersPage.addNewTeacher(name, title, institution, description, image, warning);
 		Thread.sleep(4000);
+		Assert.assertEquals(teachersPage.getWarningMessage(), warning, "Warning message does not match");
+		teachersPage.clickSaveButton();
+	}
+	
+	@Test(priority=1, dataProvider="getEmauaTestData2")		//Verify that SuperAdmin can add a new Institution  -- COMPLETED
+	public void verifyAddTeacher(String name, String title, String institution,  String description, String image, String warning) throws InterruptedException {
+		teachersPage.clickAddTeacherButton();
+		driver.switchTo().defaultContent();
+		teachersPage.addNewTeacher(name, title, institution, description, image, warning);
+		Thread.sleep(4000);
+		Assert.assertTrue(teachersPage.isSaveButtonEnabled(), "Not all mandatory fields are completed");
 		teachersPage.clickSaveButton();
 	}
 	
 	
-	@Test ()	// Verify that SuperAdmin can edit Institution -- COMPLETED
+	@Test ()	// Verify that SuperAdmin can edit Institution
 	public void verifyEditInstitutionTest() throws InterruptedException {
 		teachersPage.clickEditButton();
 		driver.switchTo().defaultContent();
@@ -167,12 +192,6 @@ public class TeachersPageTest extends TestBase{
 		public void clickOnCheckCoursesButton() {
 			teachersPage.clickOnCheckCoursesButton();
 	}
-	
-	//@Test(enabled=false)
-	//	public void verifyCategoryTitle() {
-	//		String categoryTitle=teachersPage.validateCategoryTitle();
-	//		Assert.assertEquals(categoryTitle, "Teachers");
-	//	}
 	
 	@Test()
 	public void verifyAddTeacher() {

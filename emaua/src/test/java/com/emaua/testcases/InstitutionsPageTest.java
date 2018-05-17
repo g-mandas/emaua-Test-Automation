@@ -23,7 +23,8 @@ public class InstitutionsPageTest extends TestBase{
 	InstitutionsPage institutionsPage;
 	TeachersPage teachersPage;
 	
-	String sheetName = "Institutions";
+	String sheetName1 = "InstitutionsWarning";
+	String sheetName2 = "Institutions";
 
 	public InstitutionsPageTest() {
 		super();
@@ -42,19 +43,25 @@ public class InstitutionsPageTest extends TestBase{
 
 	}
 	
-	@DataProvider
+	@DataProvider(name = "getEmauaTestData")
 	public Object[][] getEmauaTestData() {
-		Object data[][] = TestUtil.getTestData(sheetName);
+		Object data[][] = TestUtil.getTestData(sheetName1);
 		return data;
 	}
 	
-	@Test(enabled=false) // Verify the Institutions Page Title -- COMPLETED
+	@DataProvider(name = "getEmauaTestData2")
+	public Object[][] getEmauaTestData2() {
+		Object data[][] = TestUtil.getTestData(sheetName2);
+		return data;
+	}
+	
+	@Test() // Verify the Institutions Page Title
 	public void verifyInstitutionsPageTitleTest() {
 		String institutionPageTitle = institutionsPage.validateInstitutionsPageTitle();
 		Assert.assertEquals(institutionPageTitle, "Institutions :: Emaua", "Home page title does not match");
 	}
 	
-	@Test(enabled=false) // Verify the Institutions Page Header -- COMPLETED
+	@Test() // Verify the Institutions Page Header 
 	public void verifyInstitutionsPageHeaderTest() {
 		String institutionPageHeader = institutionsPage.validateInstitutionsPageHeader();
 		Assert.assertEquals(institutionPageHeader, "Institutions", "Page Header does not match");
@@ -62,7 +69,7 @@ public class InstitutionsPageTest extends TestBase{
 	
 	// Test Cases for Add Institution Functionality
 	
-	@Test(enabled=false)  //Verify the Heading of the Add Institution Pop-up Window -- COMPLETED
+	@Test()  //Verify the Header of the Add Institution Pop-up Window -- COMPLETED
 	public void verifyAddInstitutionModalTitle() throws InterruptedException {
 		institutionsPage.clickAddInstitutionButton();
 		driver.switchTo().defaultContent();
@@ -71,26 +78,38 @@ public class InstitutionsPageTest extends TestBase{
 	}
 	
 	
-	@Test(enabled=false) // Verify that the save button is disabled  -- COMPLETED
+	@Test() // Verify that the save button is disabled
 	public void verifySaveButtonDisabled() throws InterruptedException {
 		institutionsPage.clickAddInstitutionButton();
 		driver.switchTo().defaultContent();
 		Thread.sleep(4000);
-		boolean buttonDisabled=institutionsPage.verifySaveButtonDisabled();
+		boolean buttonDisabled=!institutionsPage.isSaveButtonEnabled();
 		Assert.assertEquals(buttonDisabled, true);
 	}
 	
-	@Test(priority=1, dataProvider="getEmauaTestData")		//Verify that SuperAdmin can add a new Institution  -- COMPLETED
-	public void verifyAddInstitutionButtonTest(String name, String description, String image, String warning) throws InterruptedException {
+	@Test(priority=1, dataProvider="getEmauaTestData")		//Verify the warning messages on form
+	public void verifyWarningMessages(String name, String description, String image, String warning) throws InterruptedException {
 		institutionsPage.clickAddInstitutionButton();
 		driver.switchTo().defaultContent();
 		institutionsPage.addNewInstitution(name, description, image, warning);
 		Thread.sleep(4000);
+		Assert.assertEquals(institutionsPage.getWarningMessage(), warning, "Warning message does not match");
 		institutionsPage.clickSaveButton();
 	}
 	
 	
-	@Test (enabled=false)	// Verify that SuperAdmin can edit Institution -- COMPLETED
+	@Test (priority=1, dataProvider="getEmauaTestData2")	// Verify that SuperAdmin can add a new Institution
+	public void verifyAddInstitution(String name, String description, String image, String warning) throws InterruptedException {
+		institutionsPage.clickAddInstitutionButton();
+		driver.switchTo().defaultContent();
+		institutionsPage.addNewInstitution(name, description, image, warning);
+		Thread.sleep(4000);
+		Assert.assertTrue(institutionsPage.isSaveButtonEnabled(), "Not all mandatory fields are completed");
+		institutionsPage.clickSaveButton();
+		
+	}
+	
+	@Test()	// Verify that SuperAdmin can edit Institution
 	public void verifyEditInstitutionTest() throws InterruptedException {
 		institutionsPage.clickEditButton();
 		driver.switchTo().defaultContent();
@@ -100,7 +119,7 @@ public class InstitutionsPageTest extends TestBase{
 				
 	}
 	
-	@Test (enabled=false)	// Verify that SuperAdmin can delete Institution -- COMPLETED
+	@Test()	// Verify that SuperAdmin can delete Institution -- COMPLETED
 	public void verifyDeleteInstitutionTest() {
 		institutionsPage.clickDeleteButton();
 		driver.switchTo().defaultContent();
@@ -108,7 +127,7 @@ public class InstitutionsPageTest extends TestBase{
 		
 	}
 	
-	@Test (enabled=false)	// Verify that SuperAdmin can click "No" on the delete confirmation page -- COMPLETED
+	@Test ()	// Verify that SuperAdmin can click "No" on the delete confirmation page -- COMPLETED
 	public void verifyCancelDeleteInstitutionTest() {
 		institutionsPage.clickDeleteButton();
 		driver.switchTo().defaultContent();
@@ -116,12 +135,12 @@ public class InstitutionsPageTest extends TestBase{
 		
 	}
 	
-	@Test(enabled=false)  //Verify that pagination is working if available -- COMPLETED
+	@Test()  //Verify that pagination is working if available -- COMPLETED
 	public void verifyPagination() {
 		institutionsPage.checkPaginationLink();
 	}
 	
-	@Test(enabled=false)  //Verify that Institutions Details pop-up page is displayed  -- COMPLETED
+	@Test()  //Verify that Institutions Details pop-up page is displayed  -- COMPLETED
 	public void verifyInstitutionDetailsPopUpPageDisplayed() {
 		institutionsPage.moveMouseOverInstitutionTitle();
 		driver.switchTo().defaultContent();
@@ -130,7 +149,7 @@ public class InstitutionsPageTest extends TestBase{
 	}
 	
 
-	@Test(enabled=false)  //Verify that Courses can be viewed by clicking the "Check Courses" button -- COMPLETED
+	@Test()  //Verify that Courses can be viewed by clicking the "Check Courses" button -- COMPLETED
 	public void verifyInstitutionDetailsPopUpPageCheckCoursesButton() {
 		institutionsPage.moveMouseOverInstitutionTitle();
 		driver.switchTo().defaultContent();
@@ -138,7 +157,7 @@ public class InstitutionsPageTest extends TestBase{
 		
 	}
 	
-	@Test(enabled=false) //verify the mandatory fields
+	@Test() //verify the mandatory fields
 	public void verifyMandatoryNameField() {
 		institutionsPage.clickAddInstitutionButton();
 		driver.switchTo().defaultContent();
@@ -146,21 +165,21 @@ public class InstitutionsPageTest extends TestBase{
 		
 	}
 	
-	@Test(enabled=false)  //Verify the broken links
+	@Test()  //Verify the broken links
 	public void verifyBrokenLinks() throws MalformedURLException, IOException {
 		institutionsPage.verifyBrokenLinks();
 	}
 	
-	@Test(enabled=false)  // Verify the BreadCrumb -- COMPLETED
+	@Test()  // Verify the BreadCrumb -- COMPLETED
 	public void verifyBreadCrumb() {
 		institutionsPage.verifybreadCrumb();
 		Assert.assertEquals(institutionsPage.verifybreadCrumb(), "Home/Institutions", "BreadCrumb does not match");
 	}
 	
 
-//	@AfterMethod
-//	public void tearDown() {
-//		driver.quit();
-//	}
+	@AfterMethod
+	public void tearDown() {
+		driver.quit();
+	}
 	
 }
