@@ -10,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
-import com.emaua.util.TestUtil;
 import com.emaua.util.WebEventListener;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 
